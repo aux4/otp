@@ -1,0 +1,35 @@
+{
+  "name": "@aux4/otp",
+  "version": "0.0.1",
+  "description": "One time password for aux4",
+  "main": "index.js",
+  "preferGlobal": true,
+  "bin": {
+    "aux4-otp": "bin/executable.js"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/aux4/otp.git"
+  },
+  "keywords": [
+    "otp",
+    "mfa",
+    "aux4"
+  ],
+  "author": "Aux4",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/aux4/otp/issues"
+  },
+  "homepage": "https://github.com/aux4/otp#readme",
+  "dependencies": {
+    "@aux4/engine": "^1.0.24",
+    "colors": "^1.4.0",
+    "crypto": "^1.0.1",
+    "hi-base32": "^0.5.1",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
