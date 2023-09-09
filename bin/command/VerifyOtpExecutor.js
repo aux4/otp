@@ -1,14 +1,9 @@
 const { getOtpFilePath, readFile } = require("../util/FileUtils");
 const Otp = require("../../index");
+const { getOtp } = require("../util/OtpUtils");
 
 async function verifyOtpExecutor(params) {
-  const file = getOtpFilePath(await params.file);
-  const content = await readFile(file);
-
-  const name = await params.name;
-
-  const options = content[name];
-  const otp = new Otp(options);
+  const otp = await getOtp(params);
 
   const valid = otp.verify(await params.otp);
   console.log(valid);

@@ -1,16 +1,18 @@
-const { getOtpFilePath, readFile } = require("../util/FileUtils");
-const Otp = require("../../index");
+const ncp = require("copy-paste");
+const { getOtp } = require("../util/OtpUtils");
 
 async function generateOtpExecutor(params) {
-  const file = getOtpFilePath(await params.file);
-  const content = await readFile(file);
+  const otp = await getOtp(params);
 
-  const name = await params.name;
+  const code = otp.generate();
+  console.log(code);
 
-  const options = content[name];
-  const otp = new Otp(options);
+  const noCopy = await params["no-copy"];
+  if (noCopy === true || noCopy === "true") {
+    return;
+  }
 
-  console.log(otp.generate());
+  ncp.copy(code);
 }
 
 module.exports = { generateOtpExecutor };

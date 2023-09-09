@@ -9,6 +9,7 @@ const { deleteOtpExecutor } = require("./command/DeleteOtpExecutor");
 const { listOtpExecutor } = require("./command/ListOtpExecutor");
 const { otpUrlExecutor } = require("./command/OtpUrlExecutor");
 const { otpQrcodeExecutor } = require("./command/OtpQrcodeExecutor");
+const { importOtpExecutor } = require("./command/ImportOtpExecutor");
 
 const config = {
   profiles: [
@@ -17,19 +18,18 @@ const config = {
       commands: [
         {
           name: "create",
-          execute: async params => {
-            try {
-              await createOtpExecutor(params);
-            } catch (e) {
-              console.error(e.message.red);
-            }
-          },
+          execute: execute(createOtpExecutor),
           help: {
             text: "Create OTP",
             variables: [
               {
                 name: "name",
                 text: "Name of the OTP",
+                default: ""
+              },
+              {
+                name: "issuer",
+                text: "Issuer of the OTP",
                 default: ""
               },
               {
@@ -43,12 +43,17 @@ const config = {
                 default: ""
               },
               {
-                name: "length",
+                name: "algorithm",
+                text: "Secret algorithm of the OTP",
+                default: "SHA1"
+              },
+              {
+                name: "digits",
                 text: "Length of the OTP",
                 default: "6"
               },
               {
-                name: "interval",
+                name: "period",
                 text: "Interval of the OTP",
                 default: "30"
               },
@@ -66,14 +71,31 @@ const config = {
           }
         },
         {
+          name: "import",
+          execute: execute(importOtpExecutor),
+          help: {
+            text: "Import OTP from url",
+            variables: [
+              {
+                name: "url",
+                text: "OTP url"
+              },
+              {
+                name: "name",
+                text: "Name of the OTP",
+                default: ""
+              },
+              {
+                name: "file",
+                text: "OTP file",
+                default: "~/.aux4.config/otp"
+              }
+            ]
+          }
+        },
+        {
           name: "list",
-          execute: async params => {
-            try {
-              await listOtpExecutor(params);
-            } catch (e) {
-              console.error(e.message.red);
-            }
-          },
+          execute: execute(listOtpExecutor),
           help: {
             text: "List OTPs from the file",
             variables: [
@@ -87,20 +109,13 @@ const config = {
         },
         {
           name: "delete",
-          execute: async params => {
-            try {
-              await deleteOtpExecutor(params);
-            } catch (e) {
-              console.error(e.message.red);
-            }
-          },
+          execute: execute(deleteOtpExecutor),
           help: {
             text: "Delete OTP from the file",
             variables: [
               {
                 name: "name",
-                text: "Name of the OTP",
-                default: ""
+                text: "Name of the OTP"
               },
               {
                 name: "file",
@@ -112,20 +127,13 @@ const config = {
         },
         {
           name: "url",
-          execute: async params => {
-            try {
-              await otpUrlExecutor(params);
-            } catch (e) {
-              console.error(e.message.red);
-            }
-          },
+          execute: execute(otpUrlExecutor),
           help: {
             text: "Return OTP URL",
             variables: [
               {
                 name: "name",
-                text: "Name of the OTP",
-                default: ""
+                text: "Name of the OTP"
               },
               {
                 name: "file",
@@ -137,20 +145,13 @@ const config = {
         },
         {
           name: "qrcode",
-          execute: async params => {
-            try {
-              await otpQrcodeExecutor(params);
-            } catch (e) {
-              console.error(e.message.red);
-            }
-          },
+          execute: execute(otpQrcodeExecutor),
           help: {
             text: "Display OTP qrcode",
             variables: [
               {
                 name: "name",
-                text: "Name of the OTP",
-                default: ""
+                text: "Name of the OTP"
               },
               {
                 name: "file",
@@ -167,45 +168,36 @@ const config = {
         },
         {
           name: "generate",
-          execute: async params => {
-            try {
-              await generateOtpExecutor(params);
-            } catch (e) {
-              console.error(e.message.red);
-            }
-          },
+          execute: execute(generateOtpExecutor),
           help: {
             text: "Generate OTP",
             variables: [
               {
                 name: "name",
-                text: "Name of the OTP",
-                default: ""
+                text: "Name of the OTP"
               },
               {
                 name: "file",
                 text: "OTP file",
                 default: "~/.aux4.config/otp"
+              },
+              {
+                name: "no-copy",
+                text: "Do not copy to clipboard",
+                default: "false"
               }
             ]
           }
         },
         {
           name: "verify",
-          execute: async params => {
-            try {
-              await verifyOtpExecutor(params);
-            } catch (e) {
-              console.error(e.message.red);
-            }
-          },
+          execute: execute(verifyOtpExecutor),
           help: {
             text: "Verify OTP",
             variables: [
               {
                 name: "name",
-                text: "Name of the OTP",
-                default: ""
+                text: "Name of the OTP"
               },
               {
                 name: "file",
@@ -223,6 +215,16 @@ const config = {
     }
   ]
 };
+
+function execute(action) {
+  return async params => {
+    try {
+      await action(params);
+    } catch (e) {
+      console.error(e.message.red, e);
+    }
+  };
+}
 
 (async () => {
   const engine = new Engine({ aux4: config });

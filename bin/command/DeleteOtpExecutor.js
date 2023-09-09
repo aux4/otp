@@ -5,6 +5,13 @@ async function deleteOtpExecutor(params) {
   const content = await readFile(file);
 
   const name = await params.name;
+  if (!name) {
+    throw new Error("name is required");
+  }
+
+  if (!content[name]) {
+    throw new Error(`OTP with name ${name} does not exist`);
+  }
 
   delete content[name];
   await writeFile(file, content);
