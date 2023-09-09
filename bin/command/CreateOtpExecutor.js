@@ -13,7 +13,7 @@ async function createOtpExecutor(params) {
     window: await params.window
   });
 
-  await saveOpt(params, Øotp);
+  await saveOpt(params, otp);
 }
 
 module.exports = { createOtpExecutor };

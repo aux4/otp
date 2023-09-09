@@ -29,7 +29,6 @@
     "@aux4/engine": "^1.0.24",
     "colors": "^1.4.0",
     "copy-paste": "^1.5.3",
-    "crypto": "^1.0.1",
     "qrcode-terminal": "^0.12.0",
     "thirty-two": "^1.0.2"
   }
