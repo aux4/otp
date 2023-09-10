@@ -221,7 +221,7 @@ function execute(action) {
     try {
       await action(params);
     } catch (e) {
-      console.error(e.message.red, e);
+      console.error(e.message.red);
     }
   };
 }
