@@ -28,6 +28,11 @@ async function saveOpt(params, otp) {
     content = {};
   }
 
+  const name = await params.name;
+  if (name) {
+    otp.name = name;
+  }
+
   if (content[otp.name]) {
     throw new Error(`OTP ${otp.name} already exists`);
   }

@@ -11,6 +11,8 @@ const { otpUrlExecutor } = require("./command/OtpUrlExecutor");
 const { otpQrcodeExecutor } = require("./command/OtpQrcodeExecutor");
 const { importOtpExecutor } = require("./command/ImportOtpExecutor");
 
+process.title = "aux4-otp";
+
 const config = {
   profiles: [
     {
@@ -227,8 +229,12 @@ function execute(action) {
 }
 
 (async () => {
-  const engine = new Engine({ aux4: config });
-
   const args = process.argv.splice(2);
-  await engine.run(args);
+
+  try {
+    const engine = new Engine({ aux4: config });
+    await engine.run(args);
+  } catch (e) {
+    process.exit(1);
+  }
 })();
