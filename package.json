@@ -28,7 +28,7 @@
   "homepage": "https://aux4.io",
   "funding": "https://aux4.io/donate",
   "dependencies": {
-    "@aux4/engine": "^1.0.52",
+    "@aux4/engine": "^1.0.53",
     "colors": "^1.4.0",
     "copy-paste": "^1.5.3",
     "qrcode-terminal": "^0.12.0",

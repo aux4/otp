@@ -80,7 +80,8 @@ const config = {
             variables: [
               {
                 name: "url",
-                text: "OTP url"
+                text: "OTP url",
+                arg: true
               },
               {
                 name: "name",
@@ -117,7 +118,8 @@ const config = {
             variables: [
               {
                 name: "name",
-                text: "Name of the OTP"
+                text: "Name of the OTP",
+                arg: true
               },
               {
                 name: "file",
@@ -135,7 +137,8 @@ const config = {
             variables: [
               {
                 name: "name",
-                text: "Name of the OTP"
+                text: "Name of the OTP",
+                arg: true
               },
               {
                 name: "file",
@@ -153,7 +156,8 @@ const config = {
             variables: [
               {
                 name: "name",
-                text: "Name of the OTP"
+                text: "Name of the OTP",
+                arg: true
               },
               {
                 name: "file",
@@ -176,7 +180,8 @@ const config = {
             variables: [
               {
                 name: "name",
-                text: "Name of the OTP"
+                text: "Name of the OTP",
+                arg: true
               },
               {
                 name: "file",
@@ -208,7 +213,8 @@ const config = {
               },
               {
                 name: "otp",
-                text: "OTP"
+                text: "OTP",
+                arg: true
               }
             ]
           }

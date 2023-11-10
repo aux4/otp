@@ -1,5 +1,3 @@
-const { getOtpFilePath, readFile } = require("../util/FileUtils");
-const Otp = require("../../index");
 const { getOtp } = require("../util/OtpUtils");
 
 async function verifyOtpExecutor(params) {
