@@ -1,6 +1,6 @@
 {
   "name": "@aux4/otp",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "One time password for aux4",
   "main": "index.js",
   "preferGlobal": true,
