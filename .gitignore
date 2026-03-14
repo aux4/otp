@@ -1,6 +1,5 @@
-.idea
-node_modules
-coverage
-**/.DS_Store
-local/
-.env
+node_modules/
+package/lib/*.mjs
+package/lib/node_modules/
+package-lock.json
+.DS_Store

@@ -1,19 +1,19 @@
-const Otp = require("../..");
-const { saveOpt } = require("../util/OtpUtils");
+import Otp from "../../index.js";
+import { saveOtp } from "../util/OtpUtils.js";
 
 async function createOtpExecutor(params) {
   const otp = new Otp({
-    name: await params.name,
-    issuer: await params.issuer,
-    algorithm: await params.algorithm,
-    secret: await params.secret,
-    input: await params.input,
-    digits: await params.digits,
-    period: await params.period,
-    window: await params.window
+    name: params.name,
+    issuer: params.issuer,
+    algorithm: params.algorithm,
+    secret: params.secret,
+    input: params.input,
+    digits: params.digits,
+    period: params.period,
+    window: params.window
   });
 
-  await saveOpt(params, otp);
+  await saveOtp(params, otp);
 }
 
-module.exports = { createOtpExecutor };
+export { createOtpExecutor };

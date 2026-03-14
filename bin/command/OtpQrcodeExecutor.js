@@ -1,16 +1,17 @@
-const { getOtpFilePath, readFile } = require("../util/FileUtils");
-const Otp = require("../../index");
-const qrcode = require("qrcode-terminal");
-const { getOtp } = require("../util/OtpUtils");
+import qrcode from "qrcode-terminal";
+import { getOtp } from "../util/OtpUtils.js";
 
 async function otpQrcodeExecutor(params) {
   const otp = await getOtp(params);
 
-  const large = await params.large;
+  const large = params.large;
 
-  qrcode.generate(otp.getUrl(), { small: large === false || large === "false" }, qrcode => {
-    console.log(qrcode);
+  return new Promise((resolve) => {
+    qrcode.generate(otp.getUrl(), { small: large === false || large === "false" }, qrcodeOutput => {
+      console.log(qrcodeOutput);
+      resolve();
+    });
   });
 }
 
-module.exports = { otpQrcodeExecutor };
+export { otpQrcodeExecutor };

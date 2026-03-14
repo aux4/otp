@@ -4,4 +4,4 @@ class FileNotFoundError extends Error {
   }
 }
 
-module.exports = FileNotFoundError;
+export default FileNotFoundError;

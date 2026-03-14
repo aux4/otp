@@ -1,9 +1,9 @@
-const path = require("path");
-const os = require("os");
-const fs = require("fs");
-const fsp = require("fs/promises");
-const FileNotFoundError = require("../error/FileNotFoundError");
-const InvalidFileError = require("../error/InvalidFileError");
+import path from "path";
+import os from "os";
+import fs from "fs";
+import fsp from "fs/promises";
+import FileNotFoundError from "../error/FileNotFoundError.js";
+import InvalidFileError from "../error/InvalidFileError.js";
 
 function getOtpFilePath(filePath) {
   if (filePath.startsWith("~/")) {
@@ -19,22 +19,22 @@ async function writeFile(filePath, content) {
     await fsp.mkdir(directory, { recursive: true });
   }
 
-  await fsp.writeFile(filePath, JSON.stringify(content), { encoding: "utf8" });
+  await fsp.writeFile(filePath, JSON.stringify(content), { encoding: "utf8", mode: 0o600 });
 }
 
-async function readFile(path) {
-  const exists = fs.existsSync(path);
+async function readFile(filePath) {
+  const exists = fs.existsSync(filePath);
   if (!exists) {
-    throw new FileNotFoundError(path);
+    throw new FileNotFoundError(filePath);
   }
 
-  const file = await fsp.readFile(path, { encoding: "utf8" });
+  const file = await fsp.readFile(filePath, { encoding: "utf8" });
 
   try {
     return JSON.parse(file);
   } catch (e) {
-    throw new InvalidFileError(path);
+    throw new InvalidFileError(filePath);
   }
 }
 
-module.exports = { getOtpFilePath, writeFile, readFile };
+export { getOtpFilePath, writeFile, readFile };

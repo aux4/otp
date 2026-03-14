@@ -1,10 +1,10 @@
-const { getOtpFilePath, readFile, writeFile } = require("../util/FileUtils");
+import { getOtpFilePath, readFile, writeFile } from "../util/FileUtils.js";
 
 async function deleteOtpExecutor(params) {
-  const file = getOtpFilePath(await params.file);
+  const file = getOtpFilePath(params.file);
   const content = await readFile(file);
 
-  const name = await params.name;
+  const name = params.name;
   if (!name) {
     throw new Error("name is required");
   }
@@ -17,4 +17,4 @@ async function deleteOtpExecutor(params) {
   await writeFile(file, content);
 }
 
-module.exports = { deleteOtpExecutor };
+export { deleteOtpExecutor };

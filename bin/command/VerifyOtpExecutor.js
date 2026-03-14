@@ -1,12 +1,14 @@
-const { getOtp } = require("../util/OtpUtils");
+import { getOtp } from "../util/OtpUtils.js";
 
 async function verifyOtpExecutor(params) {
   const otp = await getOtp(params);
 
-  const valid = otp.verify(await params.otp);
+  const valid = otp.verify(params.otp);
   console.log(valid);
 
-  process.exit(valid ? 0 : 1);
+  if (!valid) {
+    throw new Error("invalid OTP");
+  }
 }
 
-module.exports = { verifyOtpExecutor };
+export { verifyOtpExecutor };

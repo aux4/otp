@@ -1,44 +1,6 @@
-# @aux4/otp
-One time password for aux4
+# aux4/otp
 
-## Install
-```bash
-$ npm install --global @aux4/otp
-```
+One-time password (OTP/TOTP) manager for aux4.
 
-## Usage
-
-### Create a new OTP
-```bash
-$ aux4-otp create --name <name>
-```
-
-### Generate OTP
-```bash
-$ aux4-otp generate --name <name>
-```
-
-### Verify OTP
-```bash
-$ aux4-otp verify --name <name>
-```
-
-### Get OTP url
-```bash
-$ aux4-otp url --name <name>
-```
-
-### Get OTP qrcode
-```bash
-$ aux4-otp qrcode --name <name>
-```
-
-### List OTPs
-```bash
-$ aux4-otp list
-```
-
-### Delete OTP
-```bash
-$ aux4-otp delete --name <name>
-```
+- [aux4 hub](https://hub.aux4.io/r/public/packages/aux4/otp)
+- [README.md](./package/README.md)

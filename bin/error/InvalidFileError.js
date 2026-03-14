@@ -4,4 +4,4 @@ class InvalidFileError extends Error {
   }
 }
 
-module.exports = InvalidFileError;
+export default InvalidFileError;

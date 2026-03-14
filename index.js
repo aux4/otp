@@ -1,3 +1,3 @@
-const Otp = require("./lib/Otp");
+import Otp from "./lib/Otp.js";
 
-module.exports = Otp;
+export default Otp;

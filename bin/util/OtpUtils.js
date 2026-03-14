@@ -1,11 +1,11 @@
-const { getOtpFilePath, readFile, writeFile } = require("./FileUtils");
-const Otp = require("../../index");
+import { getOtpFilePath, readFile, writeFile } from "./FileUtils.js";
+import Otp from "../../index.js";
 
 async function getOtp(params) {
-  const file = getOtpFilePath(await params.file);
+  const file = getOtpFilePath(params.file);
   const content = await readFile(file);
 
-  const name = await params.name;
+  const name = params.name;
   if (!name) {
     throw new Error("name is required");
   }
@@ -18,8 +18,8 @@ async function getOtp(params) {
   return Otp.parse(otpUrl);
 }
 
-async function saveOpt(params, otp) {
-  const file = getOtpFilePath(await params.file);
+async function saveOtp(params, otp) {
+  const file = getOtpFilePath(params.file);
   let content;
 
   try {
@@ -28,7 +28,7 @@ async function saveOpt(params, otp) {
     content = {};
   }
 
-  const name = await params.name;
+  const name = params.name;
   if (name) {
     otp.name = name;
   }
@@ -41,4 +41,4 @@ async function saveOpt(params, otp) {
   await writeFile(file, content);
 }
 
-module.exports = { getOtp, saveOpt };
+export { getOtp, saveOtp };

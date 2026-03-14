@@ -1,5 +1,5 @@
-const ncp = require("copy-paste");
-const { getOtp } = require("../util/OtpUtils");
+import ncp from "copy-paste";
+import { getOtp } from "../util/OtpUtils.js";
 
 async function generateOtpExecutor(params) {
   const otp = await getOtp(params);
@@ -7,12 +7,11 @@ async function generateOtpExecutor(params) {
   const code = otp.generate();
   console.log(code);
 
-  const noCopy = await params["no-copy"];
-  if (noCopy === true || noCopy === "true") {
+  if (params.noCopy === true || params.noCopy === "true") {
     return;
   }
 
   ncp.copy(code);
 }
 
-module.exports = { generateOtpExecutor };
+export { generateOtpExecutor };

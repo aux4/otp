@@ -1,0 +1,259 @@
+{
+  "scope": "aux4",
+  "name": "otp",
+  "version": "1.0.0",
+  "description": "One-time password (OTP/TOTP) manager",
+  "license": "Apache-2.0",
+  "git": "https://github.com/aux4/otp",
+  "tags": [
+    "otp",
+    "totp",
+    "mfa",
+    "2fa",
+    "authentication"
+  ],
+  "system": [
+    [
+      "test:node --version",
+      "brew:node",
+      "linux:nodejs"
+    ]
+  ],
+  "profiles": [
+    {
+      "name": "main",
+      "commands": [
+        {
+          "name": "otp",
+          "execute": [
+            "profile:otp"
+          ],
+          "help": {
+            "text": "One-time password manager"
+          }
+        }
+      ]
+    },
+    {
+      "name": "otp",
+      "commands": [
+        {
+          "name": "create",
+          "execute": [
+            "node ${packageDir}/lib/otp.mjs create values(name, issuer, otpSecret, otpInput, algorithm, digits, period, window, file)"
+          ],
+          "help": {
+            "text": "Create a new OTP",
+            "variables": [
+              {
+                "name": "name",
+                "text": "Name of the OTP",
+                "default": ""
+              },
+              {
+                "name": "issuer",
+                "text": "Issuer of the OTP",
+                "default": ""
+              },
+              {
+                "name": "otpSecret",
+                "text": "Secret of the OTP",
+                "default": ""
+              },
+              {
+                "name": "otpInput",
+                "text": "Input to generate the secret",
+                "default": ""
+              },
+              {
+                "name": "algorithm",
+                "text": "Secret algorithm",
+                "default": "SHA1"
+              },
+              {
+                "name": "digits",
+                "text": "Length of the OTP code",
+                "default": "6"
+              },
+              {
+                "name": "period",
+                "text": "Time interval in seconds",
+                "default": "30"
+              },
+              {
+                "name": "window",
+                "text": "Verification window tolerance",
+                "default": "0"
+              },
+              {
+                "name": "file",
+                "text": "OTP storage file",
+                "default": "~/.aux4.config/otp"
+              }
+            ]
+          }
+        },
+        {
+          "name": "import",
+          "execute": [
+            "node ${packageDir}/lib/otp.mjs import values(url, name, file)"
+          ],
+          "help": {
+            "text": "Import OTP from an otpauth URL",
+            "variables": [
+              {
+                "name": "url",
+                "text": "OTP auth URL",
+                "arg": true
+              },
+              {
+                "name": "name",
+                "text": "Name override for the OTP",
+                "default": ""
+              },
+              {
+                "name": "file",
+                "text": "OTP storage file",
+                "default": "~/.aux4.config/otp"
+              }
+            ]
+          }
+        },
+        {
+          "name": "list",
+          "execute": [
+            "node ${packageDir}/lib/otp.mjs list values(file)"
+          ],
+          "help": {
+            "text": "List all stored OTPs",
+            "variables": [
+              {
+                "name": "file",
+                "text": "OTP storage file",
+                "default": "~/.aux4.config/otp"
+              }
+            ]
+          }
+        },
+        {
+          "name": "delete",
+          "execute": [
+            "node ${packageDir}/lib/otp.mjs delete values(name, file)"
+          ],
+          "help": {
+            "text": "Delete an OTP",
+            "variables": [
+              {
+                "name": "name",
+                "text": "Name of the OTP to delete",
+                "arg": true
+              },
+              {
+                "name": "file",
+                "text": "OTP storage file",
+                "default": "~/.aux4.config/otp"
+              }
+            ]
+          }
+        },
+        {
+          "name": "url",
+          "execute": [
+            "node ${packageDir}/lib/otp.mjs url values(name, file)"
+          ],
+          "help": {
+            "text": "Display the otpauth URL for an OTP",
+            "variables": [
+              {
+                "name": "name",
+                "text": "Name of the OTP",
+                "arg": true
+              },
+              {
+                "name": "file",
+                "text": "OTP storage file",
+                "default": "~/.aux4.config/otp"
+              }
+            ]
+          }
+        },
+        {
+          "name": "qrcode",
+          "execute": [
+            "node ${packageDir}/lib/otp.mjs qrcode values(name, file, large)"
+          ],
+          "help": {
+            "text": "Display QR code for an OTP",
+            "variables": [
+              {
+                "name": "name",
+                "text": "Name of the OTP",
+                "arg": true
+              },
+              {
+                "name": "file",
+                "text": "OTP storage file",
+                "default": "~/.aux4.config/otp"
+              },
+              {
+                "name": "large",
+                "text": "Generate large QR code",
+                "default": "false"
+              }
+            ]
+          }
+        },
+        {
+          "name": "generate",
+          "execute": [
+            "node ${packageDir}/lib/otp.mjs generate values(name, file, noCopy)"
+          ],
+          "help": {
+            "text": "Generate an OTP code",
+            "variables": [
+              {
+                "name": "name",
+                "text": "Name of the OTP",
+                "arg": true
+              },
+              {
+                "name": "file",
+                "text": "OTP storage file",
+                "default": "~/.aux4.config/otp"
+              },
+              {
+                "name": "noCopy",
+                "text": "Do not copy to clipboard",
+                "default": "false"
+              }
+            ]
+          }
+        },
+        {
+          "name": "verify",
+          "execute": [
+            "node ${packageDir}/lib/otp.mjs verify values(name, file, code)"
+          ],
+          "help": {
+            "text": "Verify an OTP code",
+            "variables": [
+              {
+                "name": "name",
+                "text": "Name of the OTP"
+              },
+              {
+                "name": "file",
+                "text": "OTP storage file",
+                "default": "~/.aux4.config/otp"
+              },
+              {
+                "name": "code",
+                "text": "OTP code to verify"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

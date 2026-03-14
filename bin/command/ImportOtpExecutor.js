@@ -1,8 +1,9 @@
-const Otp = require("../..");
-const { saveOpt } = require("../util/OtpUtils");
+import Otp from "../../index.js";
+import { saveOtp } from "../util/OtpUtils.js";
+
 async function importOtpExecutor(params) {
-  const otp = Otp.parse(await params.url);
-  await saveOpt(params, otp);
+  const otp = Otp.parse(params.url);
+  await saveOtp(params, otp);
 }
 
-module.exports = { importOtpExecutor };
+export { importOtpExecutor };
