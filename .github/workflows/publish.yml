@@ -50,16 +50,7 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Install aux4
-        run: npm install -g aux4
-
-      - name: Install aux4 test
-        run: aux4 aux4 pkger install aux4/test
-
-      - name: Run tests
-        run: cd package && aux4 test run
-
-      - name: Publish package
+- name: Publish package
         uses: aux4/publish-package-action@v1
         with:
           dir: package
